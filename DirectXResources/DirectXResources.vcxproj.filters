@@ -22,4 +22,7 @@
     <Image Include="seafloor.dds" />
     <Image Include="807585.dds" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md" />
+  </ItemGroup>
 </Project>

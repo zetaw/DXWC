@@ -1,2 +1,8 @@
 # DXWC
-DirectX Wang Classes
+DirectX Wraped Classes
+
+Only For Learn
+
+Use DXUT and Effect Framework
+
+Ugly Codes!
