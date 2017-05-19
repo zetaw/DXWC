@@ -3,6 +3,7 @@
 #include "WVSShader.h"
 #include "WBuffer.h"
 #include "WTexture.h"
+#include "WEffect.h"
 
 const int drawNum = 30;
 const float PI = 3.1415926535;
@@ -12,7 +13,6 @@ XMMATRIX World;
 XMMATRIX View;
 XMMATRIX Projection;
 XMFLOAT4 meshColor(1,1,1,0);
-ID3DX11Effect* gEffect;
 struct Vertex{
 	XMFLOAT3 Pos;
 	XMFLOAT2 Tex;
@@ -36,6 +36,7 @@ WConstantBuffer<CBNeverChanges> *gCBNeverChanges;
 WConstantBuffer<CBChangeOnResize> *gCBChangeOnResize;
 WConstantBuffer<CBChangesEveryFrame> *gCBChangesEveryFrame;
 WTexture *gTexture;
+WEffect *gEffect;
 
 HRESULT CALLBACK OnD3D11CreateDevice(ID3D11Device* pd3dDevices, const DXGI_SURFACE_DESC* pBackBufferSurfaceDesc, void* pUserContext){
 	using namespace DX;
@@ -52,8 +53,10 @@ HRESULT CALLBACK OnD3D11CreateDevice(ID3D11Device* pd3dDevices, const DXGI_SURFA
 	gCBChangeOnResize = new WConstantBuffer<CBChangeOnResize>();
 	gCBChangesEveryFrame = new WConstantBuffer<CBChangesEveryFrame>();
 	gTexture = new WTexture();
+	gEffect = new WEffect();
 	gVertexShader->Compile(L"light.fx", "VS");
 	gPixelShader->Compile(L"light.fx", "PS");
+	gEffect->Compile(L"light.fx");
 	
 	D3D11_INPUT_ELEMENT_DESC inputElement[] =
 	{

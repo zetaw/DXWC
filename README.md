@@ -1,7 +1,7 @@
 # DXWC
 DirectX Wrapped Classes
 
-Only For Learn
+Only For Learning
 
 Use DXUT Framework
 
