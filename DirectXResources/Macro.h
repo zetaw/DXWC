@@ -44,6 +44,8 @@
 #include <d3dcompiler.h>
 #include <xnamath.h>
 #include <vector>
+#include <Effects.h>
+#include <d3dx11effect.h>
 
 namespace DX{
 	inline void ThrowIfFailed(HRESULT hr){

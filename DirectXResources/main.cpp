@@ -12,6 +12,7 @@ XMMATRIX World;
 XMMATRIX View;
 XMMATRIX Projection;
 XMFLOAT4 meshColor(1,1,1,0);
+ID3DX11Effect* gEffect;
 struct Vertex{
 	XMFLOAT3 Pos;
 	XMFLOAT2 Tex;

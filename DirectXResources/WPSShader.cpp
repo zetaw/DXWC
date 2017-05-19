@@ -1,6 +1,5 @@
-#include "DXUT.h"
+#include "Macro.h"
 #include "WPSShader.h"
-
 
 WPSShader::WPSShader(){
 	m_blob = nullptr;
