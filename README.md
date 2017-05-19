@@ -3,6 +3,8 @@ DirectX Wrapped Classes
 
 Only For Learn
 
-Use DXUT and Effect Framework
+Use DXUT Framework
+
+Now I'm Learning Effect framework
 
 Ugly Codes!

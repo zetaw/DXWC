@@ -398,6 +398,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="WEffect.cpp" />
     <ClCompile Include="WPSShader.cpp" />
     <ClCompile Include="WTexture.cpp" />
     <ClCompile Include="WVSShader.cpp" />
@@ -409,6 +410,7 @@
   <ItemGroup>
     <ClInclude Include="Macro.h" />
     <ClInclude Include="WBuffer.h" />
+    <ClInclude Include="WEffect.h" />
     <ClInclude Include="WPSShader.h" />
     <ClInclude Include="WTexture.h" />
     <ClInclude Include="WVSShader.h" />

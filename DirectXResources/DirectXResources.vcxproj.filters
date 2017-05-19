@@ -5,6 +5,7 @@
     <ClCompile Include="WVSShader.cpp" />
     <ClCompile Include="WPSShader.cpp" />
     <ClCompile Include="WTexture.cpp" />
+    <ClCompile Include="WEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="color.fx" />
@@ -16,6 +17,7 @@
     <ClInclude Include="WBuffer.h" />
     <ClInclude Include="Macro.h" />
     <ClInclude Include="WTexture.h" />
+    <ClInclude Include="WEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="pic.jpg" />

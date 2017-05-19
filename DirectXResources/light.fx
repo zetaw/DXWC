@@ -57,3 +57,11 @@ float4 PS(PS_INPUT input) : SV_Target
 {
 	return txDiffuse.Sample(samLinear, input.Tex) * vMeshColor;
 }
+
+technique11 TexTech{
+	pass P0{
+		SetVertexShader(CompileShader(vs_4_0, VS()));
+		SetGeometryShader(NULL);
+		SetPixelShader(CompileShader(ps_4_0, PS()));
+	}
+}
