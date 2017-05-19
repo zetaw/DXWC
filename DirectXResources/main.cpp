@@ -36,8 +36,6 @@ WConstantBuffer<CBNeverChanges> *gCBNeverChanges;
 WConstantBuffer<CBChangeOnResize> *gCBChangeOnResize;
 WConstantBuffer<CBChangesEveryFrame> *gCBChangesEveryFrame;
 WTexture *gTexture;
-WEffect *gEffect;
-
 HRESULT CALLBACK OnD3D11CreateDevice(ID3D11Device* pd3dDevices, const DXGI_SURFACE_DESC* pBackBufferSurfaceDesc, void* pUserContext){
 	using namespace DX;
 
@@ -53,17 +51,13 @@ HRESULT CALLBACK OnD3D11CreateDevice(ID3D11Device* pd3dDevices, const DXGI_SURFA
 	gCBChangeOnResize = new WConstantBuffer<CBChangeOnResize>();
 	gCBChangesEveryFrame = new WConstantBuffer<CBChangesEveryFrame>();
 	gTexture = new WTexture();
-	gEffect = new WEffect();
 	gVertexShader->Compile(L"light.fx", "VS");
-	gPixelShader->Compile(L"light.fx", "PS");
-	gEffect->Compile(L"light.fx");
-	
+	gPixelShader->Compile(L"light.fx", "PS");	
 	D3D11_INPUT_ELEMENT_DESC inputElement[] =
 	{
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0}
 	};
-	gVertexShader->createInputLayout(inputElement, 2);
 	Vertex vertexData[] =
 	{
 		{XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT2(0.0f, 0.0f)},
@@ -125,6 +119,7 @@ HRESULT CALLBACK OnD3D11CreateDevice(ID3D11Device* pd3dDevices, const DXGI_SURFA
 	WBuffer<WORD> indexBuffer;
 	indexBuffer.CreateBuffer(indices, 36, D3D11_BIND_INDEX_BUFFER);
 	pd3dImmediateContext->IASetIndexBuffer(indexBuffer.getBuffer(), DXGI_FORMAT_R16_UINT, 0);
+	gVertexShader->createInputLayout(inputElement, 2);
 	pd3dImmediateContext->IASetInputLayout(gVertexShader->getInputLayout());
 	pd3dImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 

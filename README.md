@@ -5,6 +5,6 @@ Only For Learning
 
 Use DXUT Framework
 
-Now I'm Learning Effect framework
+Now I'm Learning DirectX11
 
 Ugly Codes!
