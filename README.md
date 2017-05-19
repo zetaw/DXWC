@@ -1,5 +1,5 @@
 # DXWC
-DirectX Wraped Classes
+DirectX Wrapped Classes
 
 Only For Learn
 
