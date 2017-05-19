@@ -2,5 +2,24 @@
 <Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="WVSShader.cpp" />
+    <ClCompile Include="WPSShader.cpp" />
+    <ClCompile Include="WTexture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="color.fx" />
+    <FxCompile Include="light.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WVSShader.h" />
+    <ClInclude Include="WPSShader.h" />
+    <ClInclude Include="WBuffer.h" />
+    <ClInclude Include="Macro.h" />
+    <ClInclude Include="WTexture.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="pic.jpg" />
+    <Image Include="seafloor.dds" />
+    <Image Include="807585.dds" />
   </ItemGroup>
 </Project>

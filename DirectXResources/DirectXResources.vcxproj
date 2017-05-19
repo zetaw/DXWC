@@ -150,7 +150,7 @@
       <PrecompiledHeaderFile>DXUT.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions> /force %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>d3dcompiler.lib;d3dx11d.lib;d3dx9d.lib;dxerr.lib;dxguid.lib;winmm.lib;comctl32.lib;legacy_stdio_definitions.lib;DXUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -172,6 +172,12 @@
       <Command>
       </Command>
     </PostBuildEvent>
+    <FxCompile>
+      <ShaderType>Effect</ShaderType>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>4.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'">
     <ClCompile>
@@ -255,6 +261,12 @@
       <Command>
       </Command>
     </PostBuildEvent>
+    <FxCompile>
+      <ShaderType>Effect</ShaderType>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>4.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|X64'">
     <ClCompile>
@@ -386,12 +398,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="WPSShader.cpp" />
+    <ClCompile Include="WTexture.cpp" />
+    <ClCompile Include="WVSShader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="color.fx" />
+    <FxCompile Include="light.fx" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Macro.h" />
+    <ClInclude Include="WBuffer.h" />
+    <ClInclude Include="WPSShader.h" />
+    <ClInclude Include="WTexture.h" />
+    <ClInclude Include="WVSShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="807585.dds" />
+    <Image Include="pic.jpg" />
+    <Image Include="seafloor.dds" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
