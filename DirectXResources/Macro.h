@@ -46,6 +46,9 @@
 #include <vector>
 #include <Effects.h>
 #include <d3dx11effect.h>
+#include <iostream>
+#include <string>
+
 
 namespace DX{
 	inline void ThrowIfFailed(HRESULT hr){
