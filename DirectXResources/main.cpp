@@ -202,7 +202,7 @@ void CALLBACK OnD3D11FrameRender(ID3D11Device* pd3dDevice, ID3D11DeviceContext* 
 	tempb = vertexBuffer2.getBuffer();
 	pd3dImmediateContext->IASetVertexBuffers(0, 1, &tempb, &stride, &offset);
 	pd3dImmediateContext->IASetIndexBuffer(indexBuffer2.getBuffer(), DXGI_FORMAT_R16_UINT, 0);
-	World = XMMatrixRotationY(t)*XMMatrixRotationZ(t)*XMMatrixTranslation(5*sin(t),0,0)*XMMatrixTranslation(0,3,0);
+	World = XMMatrixRotationY(t)*XMMatrixRotationZ(-t)*XMMatrixTranslation(5*sin(t),0,0)*XMMatrixTranslation(0,3,0);
 	cb.mWorld = XMMatrixTranspose(World);
 	pd3dImmediateContext->UpdateSubresource(gCBChangesEveryFrame->getBuffer(), 0, NULL, &cb, 0, 0);
 	ID3D11ShaderResourceView* tempsrv2 = gTexture2->getShaderResourceView();

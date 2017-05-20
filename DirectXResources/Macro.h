@@ -48,6 +48,11 @@
 #include <DXUTmisc.h>
 #include <DXUT\Optional\SDKmisc.h>
 #include <DXUT\Optional\DXUTgui.h>
+#include <D3D10_1.h>
+#include <DXGI.h>
+#include <D2D1.h>
+#include <sstream>
+#include <dwrite.h>
 
 
 namespace DX{
