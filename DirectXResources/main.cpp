@@ -4,6 +4,7 @@
 #include "WBuffer.h"
 #include "WTexture.h"
 #include "WEffect.h"
+#include "WFont.h"
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include <freetype/ftglyph.h>
@@ -40,8 +41,9 @@ WConstantBuffer<CBChangeOnResize> *gCBChangeOnResize;
 WConstantBuffer<CBChangesEveryFrame> *gCBChangesEveryFrame;
 WTexture *gTexture;
 WTexture *gTexture2;
-WBuffer<Vertex> vertexBuffer2;
-WBuffer<WORD> indexBuffer2;
+WBuffer<Vertex> vertexBuffer,vertexBuffer2;
+WBuffer<WORD> indexBuffer,indexBuffer2;
+
 HRESULT CALLBACK OnD3D11CreateDevice(ID3D11Device* pd3dDevices, const DXGI_SURFACE_DESC* pBackBufferSurfaceDesc, void* pUserContext){
 	using namespace DX;
 
@@ -58,15 +60,15 @@ HRESULT CALLBACK OnD3D11CreateDevice(ID3D11Device* pd3dDevices, const DXGI_SURFA
 	gCBChangesEveryFrame = new WConstantBuffer<CBChangesEveryFrame>();
 	gTexture = new WTexture();
 	gTexture2 = new WTexture();
+
+
 	gVertexShader->Compile(L"light.fx", "VS");
 	gPixelShader->Compile(L"light.fx", "PS");	
-	D3D11_INPUT_ELEMENT_DESC inputElement[] =
-	{
+	D3D11_INPUT_ELEMENT_DESC inputElement[] = {
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0}
 	};
-	Vertex vertexData[] =
-	{
+	Vertex vertexData[] = {
 		{XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT2(0.0f, 0.0f)},
 		{XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT2(1.0f, 0.0f)},
 		{XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f)},
@@ -117,14 +119,12 @@ HRESULT CALLBACK OnD3D11CreateDevice(ID3D11Device* pd3dDevices, const DXGI_SURFA
 		22,20,21,
 		23,20,22
 	};
-	WBuffer<Vertex> vertexBuffer;
 	vertexBuffer2.CreateBuffer(vertexData, 24, D3D11_BIND_VERTEX_BUFFER);
 	vertexBuffer.CreateBuffer(vertexData, 24, D3D11_BIND_VERTEX_BUFFER);
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
 	ID3D11Buffer * tempb = vertexBuffer.getBuffer();
 	pd3dImmediateContext->IASetVertexBuffers(0, 1, &tempb, &stride, &offset);
-	WBuffer<WORD> indexBuffer;
 	indexBuffer.CreateBuffer(indices, 36, D3D11_BIND_INDEX_BUFFER);
 	indexBuffer2.CreateBuffer(indices, 36, D3D11_BIND_INDEX_BUFFER);
 	pd3dImmediateContext->IASetIndexBuffer(indexBuffer.getBuffer(), DXGI_FORMAT_R16_UINT, 0);
@@ -171,7 +171,14 @@ void CALLBACK OnD3D11FrameRender(ID3D11Device* pd3dDevice, ID3D11DeviceContext* 
 	if (dwTimeStart == 0)
 		dwTimeStart = dwTimeCur;
 	t = (dwTimeCur - dwTimeStart) / 1000.0f;
+	
+	pd3dImmediateContext->IASetInputLayout(gVertexShader->getInputLayout());
+	UINT stride = sizeof(Vertex);
+	UINT offset = 0;
+	ID3D11Buffer * tempb = vertexBuffer.getBuffer();
+	pd3dImmediateContext->IASetVertexBuffers(0, 1, &tempb, &stride, &offset);
 
+	pd3dImmediateContext->IASetIndexBuffer(indexBuffer.getBuffer(), DXGI_FORMAT_R16_UINT, 0);
 
 	World = XMMatrixRotationY(t)*XMMatrixRotationZ(t);
 
@@ -192,13 +199,10 @@ void CALLBACK OnD3D11FrameRender(ID3D11Device* pd3dDevice, ID3D11DeviceContext* 
 	pd3dImmediateContext->PSSetSamplers(0, 1, &tempsl);
 	pd3dImmediateContext->DrawIndexed(36, 0, 0);
 
-	UINT stride = sizeof(Vertex);
-	UINT offset = 0;
-	ID3D11Buffer * tempb = vertexBuffer2.getBuffer();
+	tempb = vertexBuffer2.getBuffer();
 	pd3dImmediateContext->IASetVertexBuffers(0, 1, &tempb, &stride, &offset);
-
 	pd3dImmediateContext->IASetIndexBuffer(indexBuffer2.getBuffer(), DXGI_FORMAT_R16_UINT, 0);
-	World = XMMatrixRotationY(t)*XMMatrixRotationZ(t)*XMMatrixTranslation(5*sin(t),0,0);
+	World = XMMatrixRotationY(t)*XMMatrixRotationZ(t)*XMMatrixTranslation(5*sin(t),0,0)*XMMatrixTranslation(0,3,0);
 	cb.mWorld = XMMatrixTranspose(World);
 	pd3dImmediateContext->UpdateSubresource(gCBChangesEveryFrame->getBuffer(), 0, NULL, &cb, 0, 0);
 	ID3D11ShaderResourceView* tempsrv2 = gTexture2->getShaderResourceView();
@@ -206,6 +210,7 @@ void CALLBACK OnD3D11FrameRender(ID3D11Device* pd3dDevice, ID3D11DeviceContext* 
 	pd3dImmediateContext->PSSetShaderResources(0, 1, &tempsrv2);
 	pd3dImmediateContext->PSSetSamplers(0, 1, &tempsl2);
 	pd3dImmediateContext->DrawIndexed(36, 0, 0);
+	
 }
 
 
@@ -217,6 +222,7 @@ void CALLBACK onRelease(void* pUserContext){
 	delete gCBNeverChanges;
 	delete gTexture;
 	delete gTexture2;
+;
 }
 
 int WINAPI wWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow ){

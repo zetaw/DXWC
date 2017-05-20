@@ -10,11 +10,6 @@
 // Use the C++ standard templated min/max
 #define NOMINMAX
 
-// DirectX apps don't need GDI
-#define NODRAWTEXT
-#define NOGDI
-#define NOBITMAP
-
 // Include <mcx.h> if you need this
 #define NOMCX
 
@@ -48,6 +43,11 @@
 #include <d3dx11effect.h>
 #include <iostream>
 #include <string>
+#include <usp10.h>
+#include <WinUser.h>
+#include <DXUTmisc.h>
+#include <DXUT\Optional\SDKmisc.h>
+#include <DXUT\Optional\DXUTgui.h>
 
 
 namespace DX{
